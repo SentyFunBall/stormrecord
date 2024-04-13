@@ -152,4 +152,4 @@ def column_length(rows, col_index):
     return col_length
 
 
-app.run(host = '0.0.0.0', port=1575, debug=True, )
+app.run(host = '0.0.0.0', port=1575)
