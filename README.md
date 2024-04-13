@@ -38,6 +38,10 @@ So yeah, I think it's pretty capable, and helpful for debugging or analyzing dat
 - It will then start exporting the data to `data.csv`, in the same directory you put the Python file.
 - It is recommended to make sure that `data.csv` actually gets updated during the export, you can open it in Notepad or whatever to check.
 
+## Soon (probably?)
+I stil want to add a few things to this project, such as completely redoing the logging and exporting system, fixing the C++ server so Windows doens't think it's a trojan, and Live Export.
+Yeah, Live Export is the big one. Python server should be able to handle it right now, and it'll make things a *lot* more convienent. I also would like to make it export multiple sensor datas at once.
+
 If you experience issues, feel free to tag me (@sentyfunball) on the Stormworks Discord, or the SentyTek Discord.
 I'll also check for Issues and Pull Requests here occasionally. Have fun!
 SentyTek Discord: https://discord.gg/qca9kv53DY
