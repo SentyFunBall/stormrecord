@@ -199,6 +199,11 @@ function onTick()
         end
     end
 
+    if not export then
+        attempts = 0
+        receipts = 0
+    end
+
     -- Check for export and start exporting data
     if export and exportStatus ~= "Exported!" and connection then
         exportTimer = exportTimer + 1
@@ -221,6 +226,7 @@ function onTick()
     end
 
     if refresh then
+        async.httpGet(1575, "/ping")
         async.httpGet(1575, "/refresh")
     end
 
