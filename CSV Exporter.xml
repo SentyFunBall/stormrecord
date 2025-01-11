@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<microprocessor name="CSV-Based Multi-channel Data Logger" description="Logs data on multiple channels and exports externally to a CSV File" width="3" length="2" id_counter="218" id_counter_node="6" sym0="19844" sym1="43080" sym2="43076" sym3="42050" sym4="42069" sym5="44430" sym7="32766" sym8="16386" sym9="17210" sym10="16386" sym11="18298" sym12="16386" sym13="20250" sym14="16386" sym15="32766">
+<microprocessor name="CSV-Based Multi-channel Data Logger" description="Logs data on multiple channels and exports externally to a CSV File" width="3" length="2" id_counter="213" id_counter_node="5" sym0="19844" sym1="43080" sym2="43076" sym3="42050" sym4="42069" sym5="44430" sym7="32766" sym8="16386" sym9="17210" sym10="16386" sym11="18298" sym12="16386" sym13="20250" sym14="16386" sym15="32766">
 	<nodes>
 		<n id="1" component_id="5">
 			<node label="Data in" mode="1" type="5" description="The input signal to be processed."/>
@@ -20,13 +20,8 @@
 			</node>
 		</n>
 		<n id="5" component_id="211">
-			<node label="Clear CSV" mode="1" description="The input signal to be processed.">
+			<node label="Clear CSV/Reconnect to server" mode="1" description="The input signal to be processed.">
 				<position x="2" z="1"/>
-			</node>
-		</n>
-		<n id="6" component_id="217">
-			<node label="Done exporting" description="The input signal to be processed.">
-				<position x="1" z="1"/>
 			</node>
 		</n>
 	</nodes>
@@ -55,74 +50,79 @@
 -- Developed &amp; Minimized using LifeBoatAPI - Stormworks Lua plugin for VSCode
 -- https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --      By Nameous Changey
--- Minimized Size: 2820 (3175 with comment) chars
-aw="Num "
-av=&apos;&apos;
-au=&apos;Empty&apos;
-at="/refresh"
+-- Minimized Size: 3031 (3386 with comment) chars
+aB="&amp;values="
+aA="Num "
+az="Empty"
+ay="Exported!"
+ax="Exporting"
+aw=&apos;Empty&apos;
+av="bools"
+au="/packet?name="
+at=" Label:"
 as="nums"
-ar="bools"
-aq=" Label:"
-ap="/packet?name="
-ao="Exported!"
-an="&amp;values="
-am="Empty"
-al="Exporting"
-ak="Bool "
+ar="Bool "
+aq="/ping"
+ap="/refresh"
+ao=&apos;&apos;
 
-U=output
-L=false
-D=property
-K=input
-S=math
+o=1575
+P=output
+aa=true
+M=false
+J=property
+Q=input
+ab=math
 f=screen.drawText
-V=S.min
-C=table.insert
-A=string.format
-m=K.getBool
-y=async.httpGet
-w=D.getText
-F=D.getBool
-B=D.getNumber
+Z=ab.min
+K=table.insert
+y=string.format
+m=Q.getBool
+x=J.getText
+p=async.httpGet
+I=J.getBool
+L=J.getNumber
 h=0
-n=0
 q=0
-E=L
-g="Not exported"
+v=0
+H=M
+g="No connection"
 b=1
 d=1
 i=180
-x=as
-v=0
-I=3
+D=as
 z=0
-s=0
-M=0
-_={e={},c={}}j={e={},c={}}N=B("Record Nums Up to Ch:")O=B("Record Bools Up to Ch:")ac=B("Sample every n-th tick:")Y=F("Convert bools to 1-0:")af=F("Debug screen:")ad=F("Clear CSV on spawn:")for a=1,N do
-if w(aw..a..aq)==av then
-j.e[a]=au
+N=3
+C=0
+t=0
+X=0
+V=M
+n=0
+_={e={},c={}}k={e={},c={}}T=L("Record Nums Up to Ch:")O=L("Record Bools Up to Ch:")ag=L("Sample every n-th tick:")af=I("Convert bools to 1-0:")aj=I("Debug screen:")ah=I("Clear CSV on spawn:")p(o,aq)for a=1,T do
+if x(aA..a..at)==ao then
+k.e[a]=aw
 else
-j.e[a]=w(aw..a..aq)end
+k.e[a]=x(aA..a..at)end
 end
 for a=1,O do
-if w(ak..a..aq)==av then
-j.c[a]=au
+if x(ar..a..at)==ao then
+k.c[a]=aw
 else
-j.c[a]=w(ak..a..aq)end
+k.c[a]=x(ar..a..at)end
 end
-if ad then
-y(1575,at)end
-function onTick()ah=m(30)G=m(31)ae=m(32)and not aa
-aa=m(32)if ah and not G then
+if ah then
+p(o,ap)end
+function onTick()ai=m(30)A=m(31)ad=m(32)and not ak
+ak=m(32)if ai and not A then
 h=h+1
-if h%ac==0 then
-_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,N do
-if j.e[a]~=am then
-_.e[#_.e][a]=A("%.4f",K.getNumber(a))end
+if h%ag==0 then
+_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,T do
+if k.e[a]~=az then
+_.e[#_.e][a]=y("%.4f",Q.getNumber(a))end
 end
 for a=1,O do
-if j.c[a]~=am then
-if Y then
+if k.c[a]~=az then
+if af then
 if m(a)then
 _.c[#_.c][a]=1
 else
@@ -136,115 +136,130 @@ h=0
 else
 _.e[#_.e+1]=_.e[#_.e]_.c[#_.c+1]=_.c[#_.c]end
 end
-if G and g~=ao then
-v=v+1
-if not E then
-g=al
-H(x)E=true
+if not A then
+n=0
+q=0
+end
+if A and g~=ay and V then
+z=z+1
+if n&lt;3 then
+if not H then
+g=ax
+G(D)H=aa
 else
 g="Waiting"
 h=h+1
-if h&gt;=I then
-E=L
+if h&gt;=N then
+H=M
 h=0
 end
 end
+else
+g="Cancelled"
 end
-if ae then
-y(1575,at)end
-U.setNumber(1,v/60)U.setBool(1,g==ao)end
-function httpReply(aj,X,W)if X:find(&apos;packet&apos;)then
-if W=="Values recorded" then
-g=al
-n=n+1
+end
+if ad then
+p(o,aq)p(o,ap)end
+P.setNumber(1,z/60)P.setBool(1,g==ay)end
+function httpReply(an,E,F)if E:find(&apos;packet&apos;)then
+if F=="Values recorded" then
+g=ax
+q=q+1
+n=0
 else
 g="Failed"
 h=0
+n=n+1
 end
-elseif X:find(&apos;refresh&apos;)then
-if W~="Refreshed" then
+elseif E:find(&apos;refresh&apos;)then
+if F~="Refreshed" then
 g="Refresh failed"
 end
+elseif E:find(&apos;ping&apos;)then
+if F=="pong" then
+V=aa
+g="Not exported"
 end
 end
-function k(_,ab)local T={}for a,ag in ipairs(_)do
-C(T,ag[ab])end
-return T
 end
-function H(type)if type==as then
-local r={}local l=k(_.e,b)for a=d,V(#l,d+i-1)do
-C(r,l[a])end
+function j(_,ae)local S={}for a,ac in ipairs(_)do
+K(S,ac[ae])end
+return S
+end
+function G(type)if type==as then
+local u={}local l=j(_.e,b)for a=d,Z(#l,d+i-1)do
+K(u,l[a])end
 d=d+i
-local o=P(r)if o==av then
-if#k(_.e,b+1)&gt;0 then
+local r=Y(u)if r==ao then
+if#j(_.e,b+1)&gt;0 then
 b=b+1
 d=1
 else
-x=ar
+D=av
 d=1
 b=1
-H(ar)end
+G(av)end
 else
-y(1575,ap..j.e[b]..an..o)q=q+1
+p(o,au..k.e[b]..aB..r)v=v+1
 end
 if d&gt;#l+i then
-if#k(_.e,b+1)&gt;0 then
+if#j(_.e,b+1)&gt;0 then
 b=b+1
 d=1
 else
-x=ar
+D=av
 d=1
 b=1
-H(ar)end
+G(av)end
 end
 else
-local r={}local l=k(_.c,b)for a=d,V(#l,d+i-1)do
-C(r,l[a])end
+local u={}local l=j(_.c,b)for a=d,Z(#l,d+i-1)do
+K(u,l[a])end
 d=d+i
-local o=P(r)if o==av then
-if#k(_.c,b+1)&gt;0 then
+local r=Y(u)if r==ao then
+if#j(_.c,b+1)&gt;0 then
 b=b+1
 d=1
 else
-g=ao
+g=ay
 end
 else
-y(1575,ap..j.c[b]..an..o)q=q+1
+p(o,au..k.c[b]..aB..r)v=v+1
 end
 if d&gt;#l+i then
-if#k(_.c,b+1)&gt;0 then
+if#j(_.c,b+1)&gt;0 then
 b=b+1
 d=1
 else
-g=ao
+g=ay
 end
 end
 end
 end
-function P(t)local u=""
-for a=1,#t do
-u=u..t[a]..&apos;,&apos;
+function Y(w)local B=""
+for a=1,#w do
+B=B..w[a]..&apos;,&apos;
 end
-return u:sub(1,#u-1)end
-function R(t)local p=0
-for ai,J in pairs(t)do
-if type(J)=="table" then
-p=p+R(J)else
-p=p+1
+return B:sub(1,#B-1)end
+function U(w)local s=0
+for am,W in pairs(w)do
+if type(W)=="table" then
+s=s+U(W)else
+s=s+1
 end
 end
-return p
+return s
 end
-function onDraw()z=z+1
-if z%60==0 then
-z=0
-s=R(_)Q=#k(_.e,b)if G and n&gt;0 then
-Z=s/Q/i*Q*.84
-M=S.floor((n/Z)*100)end
+function onDraw()C=C+1
+if C%60==0 then
+C=0
+t=U(_)R=#j(_.e,b)if A and q&gt;0 then
+al=t/R/i*R*.84
+X=ab.floor((q/al)*100)end
 end
-if af then
-f(1,1,g)f(1,7,"#tbl:"..s)f(1,14,"receipts:"..n)f(1,21,"sends:"..q)f(1,27,"ticks:"..h)f(1,34,"pair:"..b)f(1,41,"bch:"..d.."-"..d+i)f(1,49,"#par:"..#k(_.e,b))f(1,56,"type:"..x)else
-f(1,1,g)f(1,7,"Pts:"..s)f(1,14,A("ETA:%.1fs",s/((180*(60/I))/1.4)))f(1,21,A("Timer:%.1fs",v/60))f(1,27,A("%%Done:%.1f%%",M))end
+if aj then
+f(1,1,g)f(1,7,"#tbl:"..t)f(1,13,"receipts:"..q)f(1,19,"sends:"..v)f(1,25,"ticks:"..h)f(1,31,"pair:"..b)f(1,37,"bch:"..d.."-"..d+i)f(1,43,"#par:"..#j(_.e,b))f(1,49,"type:"..D)f(1,55,"Attempts:"..n)else
+f(1,1,g)f(1,7,"Pts:"..t)f(1,14,y("ETA:%.1fs",t/((180*(60/N))/1.4)))f(1,21,y("Timer:%.1fs",z/60))f(1,27,y("%%Done:%.1f%%",X))end
 end
 '>
 					<pos x="3.25" y="0.75"/>
@@ -594,7 +609,7 @@ end
 				</object>
 			</c>
 			<c type="33">
-				<object id="210" n="Debug screen:">
+				<object id="210" n="Debug screen:" v="true">
 					<pos x="4.75" y="1.25"/>
 				</object>
 			</c>
@@ -607,12 +622,6 @@ end
 			<c type="31">
 				<object id="213">
 					<pos x="4.75" y="0.25"/>
-					<in1 component_id="9"/>
-				</object>
-			</c>
-			<c type="29">
-				<object id="218">
-					<pos x="4.75" y="-0.25"/>
 					<in1 component_id="9"/>
 				</object>
 			</c>
@@ -644,12 +653,6 @@ end
 					<pos x="0.25" y="-0.25"/>
 				</object>
 			</c>
-			<c type="1">
-				<object id="217">
-					<pos x="6.25" y="-0.5"/>
-					<in1 component_id="218"/>
-				</object>
-			</c>
 		</components_bridge>
 		<groups/>
 		<component_states>
@@ -669,74 +672,79 @@ end
 -- Developed &amp; Minimized using LifeBoatAPI - Stormworks Lua plugin for VSCode
 -- https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --      By Nameous Changey
--- Minimized Size: 2820 (3175 with comment) chars
-aw="Num "
-av=&apos;&apos;
-au=&apos;Empty&apos;
-at="/refresh"
+-- Minimized Size: 3031 (3386 with comment) chars
+aB="&amp;values="
+aA="Num "
+az="Empty"
+ay="Exported!"
+ax="Exporting"
+aw=&apos;Empty&apos;
+av="bools"
+au="/packet?name="
+at=" Label:"
 as="nums"
-ar="bools"
-aq=" Label:"
-ap="/packet?name="
-ao="Exported!"
-an="&amp;values="
-am="Empty"
-al="Exporting"
-ak="Bool "
+ar="Bool "
+aq="/ping"
+ap="/refresh"
+ao=&apos;&apos;
 
-U=output
-L=false
-D=property
-K=input
-S=math
+o=1575
+P=output
+aa=true
+M=false
+J=property
+Q=input
+ab=math
 f=screen.drawText
-V=S.min
-C=table.insert
-A=string.format
-m=K.getBool
-y=async.httpGet
-w=D.getText
-F=D.getBool
-B=D.getNumber
+Z=ab.min
+K=table.insert
+y=string.format
+m=Q.getBool
+x=J.getText
+p=async.httpGet
+I=J.getBool
+L=J.getNumber
 h=0
-n=0
 q=0
-E=L
-g="Not exported"
+v=0
+H=M
+g="No connection"
 b=1
 d=1
 i=180
-x=as
-v=0
-I=3
+D=as
 z=0
-s=0
-M=0
-_={e={},c={}}j={e={},c={}}N=B("Record Nums Up to Ch:")O=B("Record Bools Up to Ch:")ac=B("Sample every n-th tick:")Y=F("Convert bools to 1-0:")af=F("Debug screen:")ad=F("Clear CSV on spawn:")for a=1,N do
-if w(aw..a..aq)==av then
-j.e[a]=au
+N=3
+C=0
+t=0
+X=0
+V=M
+n=0
+_={e={},c={}}k={e={},c={}}T=L("Record Nums Up to Ch:")O=L("Record Bools Up to Ch:")ag=L("Sample every n-th tick:")af=I("Convert bools to 1-0:")aj=I("Debug screen:")ah=I("Clear CSV on spawn:")p(o,aq)for a=1,T do
+if x(aA..a..at)==ao then
+k.e[a]=aw
 else
-j.e[a]=w(aw..a..aq)end
+k.e[a]=x(aA..a..at)end
 end
 for a=1,O do
-if w(ak..a..aq)==av then
-j.c[a]=au
+if x(ar..a..at)==ao then
+k.c[a]=aw
 else
-j.c[a]=w(ak..a..aq)end
+k.c[a]=x(ar..a..at)end
 end
-if ad then
-y(1575,at)end
-function onTick()ah=m(30)G=m(31)ae=m(32)and not aa
-aa=m(32)if ah and not G then
+if ah then
+p(o,ap)end
+function onTick()ai=m(30)A=m(31)ad=m(32)and not ak
+ak=m(32)if ai and not A then
 h=h+1
-if h%ac==0 then
-_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,N do
-if j.e[a]~=am then
-_.e[#_.e][a]=A("%.4f",K.getNumber(a))end
+if h%ag==0 then
+_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,T do
+if k.e[a]~=az then
+_.e[#_.e][a]=y("%.4f",Q.getNumber(a))end
 end
 for a=1,O do
-if j.c[a]~=am then
-if Y then
+if k.c[a]~=az then
+if af then
 if m(a)then
 _.c[#_.c][a]=1
 else
@@ -750,115 +758,130 @@ h=0
 else
 _.e[#_.e+1]=_.e[#_.e]_.c[#_.c+1]=_.c[#_.c]end
 end
-if G and g~=ao then
-v=v+1
-if not E then
-g=al
-H(x)E=true
+if not A then
+n=0
+q=0
+end
+if A and g~=ay and V then
+z=z+1
+if n&lt;3 then
+if not H then
+g=ax
+G(D)H=aa
 else
 g="Waiting"
 h=h+1
-if h&gt;=I then
-E=L
+if h&gt;=N then
+H=M
 h=0
 end
 end
+else
+g="Cancelled"
 end
-if ae then
-y(1575,at)end
-U.setNumber(1,v/60)U.setBool(1,g==ao)end
-function httpReply(aj,X,W)if X:find(&apos;packet&apos;)then
-if W=="Values recorded" then
-g=al
-n=n+1
+end
+if ad then
+p(o,aq)p(o,ap)end
+P.setNumber(1,z/60)P.setBool(1,g==ay)end
+function httpReply(an,E,F)if E:find(&apos;packet&apos;)then
+if F=="Values recorded" then
+g=ax
+q=q+1
+n=0
 else
 g="Failed"
 h=0
+n=n+1
 end
-elseif X:find(&apos;refresh&apos;)then
-if W~="Refreshed" then
+elseif E:find(&apos;refresh&apos;)then
+if F~="Refreshed" then
 g="Refresh failed"
 end
+elseif E:find(&apos;ping&apos;)then
+if F=="pong" then
+V=aa
+g="Not exported"
 end
 end
-function k(_,ab)local T={}for a,ag in ipairs(_)do
-C(T,ag[ab])end
-return T
 end
-function H(type)if type==as then
-local r={}local l=k(_.e,b)for a=d,V(#l,d+i-1)do
-C(r,l[a])end
+function j(_,ae)local S={}for a,ac in ipairs(_)do
+K(S,ac[ae])end
+return S
+end
+function G(type)if type==as then
+local u={}local l=j(_.e,b)for a=d,Z(#l,d+i-1)do
+K(u,l[a])end
 d=d+i
-local o=P(r)if o==av then
-if#k(_.e,b+1)&gt;0 then
+local r=Y(u)if r==ao then
+if#j(_.e,b+1)&gt;0 then
 b=b+1
 d=1
 else
-x=ar
+D=av
 d=1
 b=1
-H(ar)end
+G(av)end
 else
-y(1575,ap..j.e[b]..an..o)q=q+1
+p(o,au..k.e[b]..aB..r)v=v+1
 end
 if d&gt;#l+i then
-if#k(_.e,b+1)&gt;0 then
+if#j(_.e,b+1)&gt;0 then
 b=b+1
 d=1
 else
-x=ar
+D=av
 d=1
 b=1
-H(ar)end
+G(av)end
 end
 else
-local r={}local l=k(_.c,b)for a=d,V(#l,d+i-1)do
-C(r,l[a])end
+local u={}local l=j(_.c,b)for a=d,Z(#l,d+i-1)do
+K(u,l[a])end
 d=d+i
-local o=P(r)if o==av then
-if#k(_.c,b+1)&gt;0 then
+local r=Y(u)if r==ao then
+if#j(_.c,b+1)&gt;0 then
 b=b+1
 d=1
 else
-g=ao
+g=ay
 end
 else
-y(1575,ap..j.c[b]..an..o)q=q+1
+p(o,au..k.c[b]..aB..r)v=v+1
 end
 if d&gt;#l+i then
-if#k(_.c,b+1)&gt;0 then
+if#j(_.c,b+1)&gt;0 then
 b=b+1
 d=1
 else
-g=ao
+g=ay
 end
 end
 end
 end
-function P(t)local u=""
-for a=1,#t do
-u=u..t[a]..&apos;,&apos;
+function Y(w)local B=""
+for a=1,#w do
+B=B..w[a]..&apos;,&apos;
 end
-return u:sub(1,#u-1)end
-function R(t)local p=0
-for ai,J in pairs(t)do
-if type(J)=="table" then
-p=p+R(J)else
-p=p+1
+return B:sub(1,#B-1)end
+function U(w)local s=0
+for am,W in pairs(w)do
+if type(W)=="table" then
+s=s+U(W)else
+s=s+1
 end
 end
-return p
+return s
 end
-function onDraw()z=z+1
-if z%60==0 then
-z=0
-s=R(_)Q=#k(_.e,b)if G and n&gt;0 then
-Z=s/Q/i*Q*.84
-M=S.floor((n/Z)*100)end
+function onDraw()C=C+1
+if C%60==0 then
+C=0
+t=U(_)R=#j(_.e,b)if A and q&gt;0 then
+al=t/R/i*R*.84
+X=ab.floor((q/al)*100)end
 end
-if af then
-f(1,1,g)f(1,7,"#tbl:"..s)f(1,14,"receipts:"..n)f(1,21,"sends:"..q)f(1,27,"ticks:"..h)f(1,34,"pair:"..b)f(1,41,"bch:"..d.."-"..d+i)f(1,49,"#par:"..#k(_.e,b))f(1,56,"type:"..x)else
-f(1,1,g)f(1,7,"Pts:"..s)f(1,14,A("ETA:%.1fs",s/((180*(60/I))/1.4)))f(1,21,A("Timer:%.1fs",v/60))f(1,27,A("%%Done:%.1f%%",M))end
+if aj then
+f(1,1,g)f(1,7,"#tbl:"..t)f(1,13,"receipts:"..q)f(1,19,"sends:"..v)f(1,25,"ticks:"..h)f(1,31,"pair:"..b)f(1,37,"bch:"..d.."-"..d+i)f(1,43,"#par:"..#j(_.e,b))f(1,49,"type:"..D)f(1,55,"Attempts:"..n)else
+f(1,1,g)f(1,7,"Pts:"..t)f(1,14,y("ETA:%.1fs",t/((180*(60/N))/1.4)))f(1,21,y("Timer:%.1fs",z/60))f(1,27,y("%%Done:%.1f%%",X))end
 end
 '>
 				<pos x="3.25" y="0.75"/>
@@ -1074,7 +1097,7 @@ end
 			<c67 id="206" n="Bool 29 Label:">
 				<pos x="14.5" y="2.25"/>
 			</c67>
-			<c68 id="210" n="Debug screen:">
+			<c68 id="210" n="Debug screen:" v="true">
 				<pos x="4.75" y="1.25"/>
 			</c68>
 			<c69 id="212" l="Export Timer">
@@ -1085,10 +1108,6 @@ end
 				<pos x="4.75" y="0.25"/>
 				<in1 component_id="9"/>
 			</c70>
-			<c71 id="218">
-				<pos x="4.75" y="-0.25"/>
-				<in1 component_id="9"/>
-			</c71>
 		</component_states>
 		<component_bridge_states>
 			<c0 id="3">
@@ -1107,10 +1126,6 @@ end
 			<c4 id="211">
 				<pos x="0.25" y="-0.25"/>
 			</c4>
-			<c5 id="217">
-				<pos x="6.25" y="-0.5"/>
-				<in1 component_id="218"/>
-			</c5>
 		</component_bridge_states>
 		<group_states/>
 	</group>
