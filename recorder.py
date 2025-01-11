@@ -6,6 +6,10 @@ import time
 app = Flask('app')
 hitCount = 0
 
+@app.route("/ping")
+def ping():
+    return "pong"
+
 @app.route("/packet")
 def packet():
     start = time.time()
@@ -17,7 +21,11 @@ def packet():
 
     print("Hit",hitCount,": Recieved",len(values), "values")
 
-    write(name, values)
+    try:
+        write(name, values)
+    except Exception as e:
+        print("Err writing:", e)
+        return "Error"
 
     end = time.time()
     length = end - start
@@ -48,7 +56,7 @@ def refresh():
         else:
             print("File 'data.csv' is empty.")
     else:
-        print("File 'data.csv' does not exist.")
+        print("File 'data.csv' does not exist in same directory as python file")
         status = "File not found"
 
     rows = []

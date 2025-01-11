@@ -114,7 +114,7 @@ ticks = 0
 receipts = 0
 sends = 0
 waiting = false
-exportStatus = "Not exported"
+exportStatus = "No connection"
 currentPairIndex = 1
 currentBatchStartIndex = 1
 batchSize = 180
@@ -124,6 +124,8 @@ exportRate = 3
 drawTick = 0
 length = 0
 progress = 0
+connection = false
+attempts = 0
 
 data = {nums = {}, bools = {}}
 channelNames = {nums = {}, bools = {}}
@@ -134,6 +136,9 @@ sampleRate = property.getNumber("Sample every n-th tick:")
 convertBools = property.getBool("Convert bools to 1-0:")
 debugScreen = property.getBool("Debug screen:")
 autoRefresh = property.getBool("Clear CSV on spawn:")
+
+--establish connection
+async.httpGet(1575, "/ping")
 
 for i = 1, numNums do
     if property.getText("Num "..i.." Label:") == '' then
@@ -153,6 +158,7 @@ end
 if autoRefresh then
     async.httpGet(1575, "/refresh")
 end
+
 
 function onTick()
     start = input.getBool(30)
@@ -194,19 +200,23 @@ function onTick()
     end
 
     -- Check for export and start exporting data
-    if export and exportStatus ~= "Exported!" then
+    if export and exportStatus ~= "Exported!" and connection then
         exportTimer = exportTimer + 1
-        if not waiting then
-            exportStatus = "Exporting"
-            sendBatch(currentDataType) --y'all this is a seriously scary function i have no clue if it works
-            waiting = true
-        else
-            exportStatus = "Waiting"
-            ticks = ticks + 1
-            if ticks >= exportRate then
-                waiting = false
-                ticks = 0
+        if attempts < 3 then --only try exporting if we haven't failed 3 times
+            if not waiting then
+                exportStatus = "Exporting"
+                sendBatch(currentDataType) --y'all this is a seriously scary function i have no clue if it works
+                waiting = true
+            else
+                exportStatus = "Waiting"
+                ticks = ticks + 1
+                if ticks >= exportRate then
+                    waiting = false
+                    ticks = 0
+                end
             end
+        else
+            exportStatus = "Cancelled"
         end
     end
 
@@ -223,13 +233,20 @@ function httpReply(port, request_body, response_body)
         if response_body == "Values recorded" then
             exportStatus = "Exporting"
             receipts = receipts + 1
+            attempts = 0
         else
             exportStatus = "Failed"
             ticks = 0
+            attempts = attempts + 1
         end
     elseif request_body:find('refresh') then
         if response_body ~= "Refreshed" then
             exportStatus = "Refresh failed"
+        end
+    elseif request_body:find('ping') then
+        if response_body == "pong" then
+            connection = true
+            exportStatus = "Not exported"
         end
     end
 end
@@ -351,13 +368,14 @@ function onDraw()
     if debugScreen then
         screen.drawText(1,1,exportStatus)
         screen.drawText(1,7,"#tbl:"..length)
-        screen.drawText(1,14,"receipts:"..receipts)
-        screen.drawText(1,21,"sends:"..sends)
-        screen.drawText(1,27,"ticks:"..ticks)
-        screen.drawText(1,34,"pair:"..currentPairIndex)
-        screen.drawText(1,41,"bch:"..currentBatchStartIndex.."-"..currentBatchStartIndex+batchSize)
-        screen.drawText(1,49,"#par:"..#extractColumn(data.nums, currentPairIndex))
-        screen.drawText(1,56,"type:"..currentDataType)
+        screen.drawText(1,13,"receipts:"..receipts)
+        screen.drawText(1,19,"sends:"..sends)
+        screen.drawText(1,25,"ticks:"..ticks)
+        screen.drawText(1,31,"pair:"..currentPairIndex)
+        screen.drawText(1,37,"bch:"..currentBatchStartIndex.."-"..currentBatchStartIndex+batchSize)
+        screen.drawText(1,43,"#par:"..#extractColumn(data.nums, currentPairIndex))
+        screen.drawText(1,49,"type:"..currentDataType)
+        screen.drawText(1,55,"Attempts:"..attempts)
     else
         screen.drawText(1,1,exportStatus)
         screen.drawText(1,7,"Pts:"..length)
