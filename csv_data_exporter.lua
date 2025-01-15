@@ -121,7 +121,7 @@ batchSize = 180
 currentDataType = "nums"
 exportTimer = 0
 exportRate = 3
-drawTick = 0
+estProgress = 0
 length = 0
 progress = 0
 connection = false
@@ -166,8 +166,8 @@ function onTick()
     refresh = input.getBool(32) and not down
     down = input.getBool(32)
 
+    ticks = ticks + 1
     if start and not export then --we are RECORDING data!
-        ticks = ticks + 1
         if ticks % sampleRate == 0 then -- time to record data
             data.nums[#data.nums+1] = {}
             data.bools[#data.bools+1] = {}
@@ -193,9 +193,6 @@ function onTick()
             end
 
             ticks = 0
-        else --if its not a sample tick, then just duplicate the data
-            data.nums[#data.nums+1] = data.nums[#data.nums]
-            data.bools[#data.bools+1] = data.bools[#data.bools]
         end
     end
 
@@ -225,12 +222,23 @@ function onTick()
         end
     end
 
+    if ticks % 60 == 0 then
+        length = recursiveLength(data)
+        par = #extractColumn(data.nums, currentPairIndex)
+        if export and receipts > 0 then
+            estProgress = length/par/batchSize*par*0.84
+            progress = math.floor((receipts/estProgress)*100)
+        end
+    end
+
     if refresh then
         async.httpGet(1575, "/ping")
         async.httpGet(1575, "/refresh")
     end
 
     output.setNumber(1, exportTimer/60)
+    output.setNumber(2, length/((180*(60/exportRate))/1.4))
+    output.setNumber(3, progress)
     output.setBool(1, exportStatus == "Exported!")
 end
 
@@ -361,16 +369,6 @@ end
 
 
 function onDraw()
-    drawTick = drawTick + 1
-    if drawTick % 60 == 0 then
-        drawTick = 0
-        length = recursiveLength(data)
-        par = #extractColumn(data.nums, currentPairIndex)
-        if export and receipts > 0 then
-            estProgress = length/par/batchSize*par*0.84
-            progress = math.floor((receipts/estProgress)*100)
-        end
-    end
     if debugScreen then
         screen.drawText(1,1,exportStatus)
         screen.drawText(1,7,"#tbl:"..length)
