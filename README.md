@@ -16,7 +16,8 @@ This is a small little project I made over a few days. It's a mass channel recor
 - Whether or not to convert booleans to 1 and 0.
 - Whether or not to clear the CSV on spawn.
 - The names. **It is important to note that it will NOT record channels are are UNAMED!**
-- debug screen with extra data (Screen is optional
+- debug screen with extra data (Screen is optional)
+  
 Tooltips are also present when hovering over the MC, and a composite output also can be used to broadcast the following values:
 Numbers:
 1. Export Timer (Seconds)
