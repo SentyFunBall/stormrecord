@@ -5,7 +5,7 @@ This is a small little project I made over a few days. It's a mass channel recor
 - Record up to 32 number channels & 29 boolean channels.
 - Every tick.
 - For a while:tm:
-- Export data ~120x faster than real-time
+- Export data ~180x faster than real-time
 - Lightweight, easy to install, great for debugging
 
 ## Microcontroller Settings (in order):
@@ -16,14 +16,19 @@ This is a small little project I made over a few days. It's a mass channel recor
 - Whether or not to convert booleans to 1 and 0.
 - Whether or not to clear the CSV on spawn.
 - The names. **It is important to note that it will NOT record channels are are UNAMED!**
-- debug screen
+- debug screen with extra data (Screen is optional
+Tooltips are also present when hovering over the MC, and a composite output also can be used to broadcast the following values:
+Numbers:
+1. Export Timer (Seconds)
+2. Export ETA (Seconds)
+3. Export Progress (%)
 
 So yeah, I think it's pretty capable, and helpful for debugging or analyzing data. Here's how to install it:
 ## Python
 - Install Python 3.10 or newer (I actually have NO idea what version of Python it needs)
   - https://www.python.org/downloads/
 - Download `recorder.py` from this repository.
-- Open Command Prompt/Terminal, navigate to the folder you put `recorder.py` in, and run `python recorder.py`. This will start the Python server
+- Open Command Prompt/Terminal, navigate to the folder you put `recorder.py` in, and run `python recorder.py`. This will start the Python server. I'd also recommend creating a `data.csv` file in the same directory as the Python script.
 
 ## Microcontroller
 - Place the microcontroller downloaded from the workshop somewhere on the creation you want to collect data from.
