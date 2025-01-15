@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<microprocessor name="CSV-Based Multi-channel Data Logger" description="Logs data on multiple channels and exports externally to a CSV File" width="3" length="2" id_counter="213" id_counter_node="5" sym0="19844" sym1="43080" sym2="43076" sym3="42050" sym4="42069" sym5="44430" sym7="32766" sym8="16386" sym9="17210" sym10="16386" sym11="18298" sym12="16386" sym13="20250" sym14="16386" sym15="32766">
+<microprocessor name="CSV-Based Multi-channel Data Logger" description="Logs data on multiple channels and exports externally to a CSV File" width="3" length="2" id_counter="221" id_counter_node="6" sym0="19844" sym1="43080" sym2="43076" sym3="42050" sym4="42069" sym5="44430" sym7="32766" sym8="16386" sym9="17210" sym10="16386" sym11="18298" sym12="16386" sym13="20250" sym14="16386" sym15="32766">
 	<nodes>
 		<n id="1" component_id="5">
 			<node label="Data in" mode="1" type="5" description="The input signal to be processed."/>
 		</n>
 		<n id="2" component_id="7">
 			<node label="Screen" type="6" description="The input signal to be processed.">
-				<position z="1"/>
+				<position x="1" z="1"/>
 			</node>
 		</n>
 		<n id="3" component_id="3">
@@ -22,6 +22,11 @@
 		<n id="5" component_id="211">
 			<node label="Clear CSV/Reconnect to server" mode="1" description="The input signal to be processed.">
 				<position x="2" z="1"/>
+			</node>
+		</n>
+		<n id="6" component_id="221">
+			<node label="Export data" type="5" description="N1: Export timer (S) | N2: Export ETA (S) | N3: Export Progress (%)">
+				<position z="1"/>
 			</node>
 		</n>
 	</nodes>
@@ -50,107 +55,108 @@
 -- Developed &amp; Minimized using LifeBoatAPI - Stormworks Lua plugin for VSCode
 -- https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --      By Nameous Changey
--- Minimized Size: 3031 (3386 with comment) chars
-aB="&amp;values="
-aA="Num "
-az="Empty"
-ay="Exported!"
-ax="Exporting"
-aw=&apos;Empty&apos;
-av="bools"
-au="/packet?name="
-at=" Label:"
-as="nums"
-ar="Bool "
-aq="/ping"
-ap="/refresh"
-ao=&apos;&apos;
+-- Minimized Size: 3012 (3367 with comment) chars
+aB="/ping"
+aA="&amp;values="
+az="Num "
+ay=&apos;&apos;
+ax="/refresh"
+aw="Empty"
+av="Exported!"
+au="Exporting"
+at="bools"
+as="Bool "
+ar="/packet?name="
+aq=&apos;Empty&apos;
+ap="nums"
+ao=" Label:"
 
-o=1575
-P=output
-aa=true
-M=false
-J=property
-Q=input
-ab=math
-f=screen.drawText
-Z=ab.min
-K=table.insert
-y=string.format
-m=Q.getBool
-x=J.getText
-p=async.httpGet
-I=J.getBool
-L=J.getNumber
+p=1575
+Q=true
+D=false
+E=property
+T=input
+R=output
+W=math
+e=screen.drawText
+V=W.min
+N=table.insert
+F=R.setNumber
+A=string.format
+m=T.getBool
+C=E.getText
+r=async.httpGet
+M=E.getBool
+L=E.getNumber
 h=0
-q=0
+n=0
 v=0
-H=M
+O=D
 g="No connection"
 b=1
-d=1
-i=180
-D=as
+c=1
+j=360
+w=ap
 z=0
-N=3
-C=0
-t=0
-X=0
-V=M
-n=0
-_={e={},c={}}k={e={},c={}}T=L("Record Nums Up to Ch:")O=L("Record Bools Up to Ch:")ag=L("Sample every n-th tick:")af=I("Convert bools to 1-0:")aj=I("Debug screen:")ah=I("Clear CSV on spawn:")p(o,aq)for a=1,T do
-if x(aA..a..at)==ao then
-k.e[a]=aw
+H=3
+ac=0
+o=0
+J=0
+aa=D
+q=0
+a={f={},d={}}i={f={},d={}}Y=L("Record Nums Up to Ch:")ab=L("Record Bools Up to Ch:")af=L("Sample every n-th tick:")ae=M("Convert bools to 1-0:")ag=M("Debug screen:")ah=M("Clear CSV on spawn:")r(p,aB)for _=1,Y do
+if C(az.._..ao)==ay then
+i.f[_]=aq
 else
-k.e[a]=x(aA..a..at)end
+i.f[_]=C(az.._..ao)end
 end
-for a=1,O do
-if x(ar..a..at)==ao then
-k.c[a]=aw
+for _=1,ab do
+if C(as.._..ao)==ay then
+i.d[_]=aq
 else
-k.c[a]=x(ar..a..at)end
+i.d[_]=C(as.._..ao)end
 end
 if ah then
-p(o,ap)end
-function onTick()ai=m(30)A=m(31)ad=m(32)and not ak
-ak=m(32)if ai and not A then
+r(p,ax)end
+function onTick()al=m(30)y=m(31)ai=m(32)and not ad
+ad=m(32)if al and not y then
 h=h+1
-if h%ag==0 then
-_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,T do
-if k.e[a]~=az then
-_.e[#_.e][a]=y("%.4f",Q.getNumber(a))end
+if h%af==0 then
+a.f[#a.f+1]={}a.d[#a.d+1]={}for _=1,Y do
+if i.f[_]~=aw then
+a.f[#a.f][_]=A("%.4f",T.getNumber(_))end
 end
-for a=1,O do
-if k.c[a]~=az then
-if af then
-if m(a)then
-_.c[#_.c][a]=1
+for _=1,ab do
+if i.d[_]~=aw then
+if ae then
+if m(_)then
+a.d[#a.d][_]=1
 else
-_.c[#_.c][a]=0
+a.d[#a.d][_]=0
 end
 else
-_.c[#_.c][a]=tostring(m(a))end
+a.d[#a.d][_]=tostring(m(_))end
 end
 end
 h=0
-else
-_.e[#_.e+1]=_.e[#_.e]_.c[#_.c+1]=_.c[#_.c]end
 end
-if not A then
-n=0
+end
+if not y then
 q=0
+n=0
 end
-if A and g~=ay and V then
+if y and g~=av and aa then
+h=h+1
 z=z+1
-if n&lt;3 then
-if not H then
-g=ax
-G(D)H=aa
+if q&lt;3 then
+if not O then
+g=au
+G(w)O=Q
 else
 g="Waiting"
 h=h+1
-if h&gt;=N then
-H=M
+if h&gt;=H then
+O=D
 h=0
 end
 end
@@ -158,108 +164,105 @@ else
 g="Cancelled"
 end
 end
-if ad then
-p(o,aq)p(o,ap)end
-P.setNumber(1,z/60)P.setBool(1,g==ay)end
-function httpReply(an,E,F)if E:find(&apos;packet&apos;)then
-if F=="Values recorded" then
-g=ax
-q=q+1
-n=0
+if h%60==0 then
+o=S(a)X=#k(a.f,b)if y and n&gt;0 then
+ac=o/X/j*X*.84
+J=W.floor((n/ac)*100)end
+end
+if ai then
+r(p,aB)r(p,ax)end
+F(1,z/60)F(2,o/((180*(60/H))/1.4))F(3,J)R.setBool(1,g==av)end
+function httpReply(an,K,I)if K:find(&apos;packet&apos;)then
+if I=="Values recorded" then
+g=au
+n=n+1
+q=0
 else
 g="Failed"
-h=0
-n=n+1
+q=q+1
 end
-elseif E:find(&apos;refresh&apos;)then
-if F~="Refreshed" then
+elseif K:find(&apos;refresh&apos;)then
+if I~="Refreshed" then
 g="Refresh failed"
 end
-elseif E:find(&apos;ping&apos;)then
-if F=="pong" then
-V=aa
+elseif K:find(&apos;ping&apos;)then
+if I=="pong" then
+aa=Q
 g="Not exported"
 end
 end
 end
-function j(_,ae)local S={}for a,ac in ipairs(_)do
-K(S,ac[ae])end
-return S
+function k(a,ak)local U={}for _,aj in ipairs(a)do
+N(U,aj[ak])end
+return U
 end
-function G(type)if type==as then
-local u={}local l=j(_.e,b)for a=d,Z(#l,d+i-1)do
-K(u,l[a])end
-d=d+i
-local r=Y(u)if r==ao then
-if#j(_.e,b+1)&gt;0 then
+function G(type)if type==ap then
+local s={}local l=k(a.f,b)for _=c,V(#l,c+j-1)do
+N(s,l[_])end
+c=c+j
+local t=P(s)if t==ay then
+if#k(a.f,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-D=av
-d=1
+w=at
+c=1
 b=1
-G(av)end
+G(at)end
 else
-p(o,au..k.e[b]..aB..r)v=v+1
+r(p,ar..i.f[b]..aA..t)v=v+1
 end
-if d&gt;#l+i then
-if#j(_.e,b+1)&gt;0 then
+if c&gt;#l+j then
+if#k(a.f,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-D=av
-d=1
+w=at
+c=1
 b=1
-G(av)end
+G(at)end
 end
 else
-local u={}local l=j(_.c,b)for a=d,Z(#l,d+i-1)do
-K(u,l[a])end
-d=d+i
-local r=Y(u)if r==ao then
-if#j(_.c,b+1)&gt;0 then
+local s={}local l=k(a.d,b)for _=c,V(#l,c+j-1)do
+N(s,l[_])end
+c=c+j
+local t=P(s)if t==ay then
+if#k(a.d,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-g=ay
+g=av
 end
 else
-p(o,au..k.c[b]..aB..r)v=v+1
+r(p,ar..i.d[b]..aA..t)v=v+1
 end
-if d&gt;#l+i then
-if#j(_.c,b+1)&gt;0 then
+if c&gt;#l+j then
+if#k(a.d,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-g=ay
+g=av
 end
 end
 end
 end
-function Y(w)local B=""
-for a=1,#w do
-B=B..w[a]..&apos;,&apos;
+function P(x)local B=""
+for _=1,#x do
+B=B..x[_]..&apos;,&apos;
 end
 return B:sub(1,#B-1)end
-function U(w)local s=0
-for am,W in pairs(w)do
-if type(W)=="table" then
-s=s+U(W)else
-s=s+1
+function S(x)local u=0
+for am,Z in pairs(x)do
+if type(Z)=="table" then
+u=u+S(Z)else
+u=u+1
 end
 end
-return s
+return u
 end
-function onDraw()C=C+1
-if C%60==0 then
-C=0
-t=U(_)R=#j(_.e,b)if A and q&gt;0 then
-al=t/R/i*R*.84
-X=ab.floor((q/al)*100)end
-end
-if aj then
-f(1,1,g)f(1,7,"#tbl:"..t)f(1,13,"receipts:"..q)f(1,19,"sends:"..v)f(1,25,"ticks:"..h)f(1,31,"pair:"..b)f(1,37,"bch:"..d.."-"..d+i)f(1,43,"#par:"..#j(_.e,b))f(1,49,"type:"..D)f(1,55,"Attempts:"..n)else
-f(1,1,g)f(1,7,"Pts:"..t)f(1,14,y("ETA:%.1fs",t/((180*(60/N))/1.4)))f(1,21,y("Timer:%.1fs",z/60))f(1,27,y("%%Done:%.1f%%",X))end
+function onDraw()if ag then
+e(1,1,g)e(1,7,"#tbl:"..o)e(1,13,"receipts:"..n)e(1,19,"sends:"..v)e(1,25,"ticks:"..h)e(1,31,"pair:"..b)e(1,37,"bch:"..c.."-"..c+j)e(1,43,"#par:"..#k(a.f,b))e(1,49,"type:"..w)e(1,55,"Attempts:"..q)else
+e(1,1,g)e(1,7,"Pts:"..o)e(1,14,A("ETA:%.1fs",o/((180*(60/H))/1.4)))e(1,21,A("Timer:%.1fs",z/60))e(1,27,A("%%Done:%.1f%%",J))end
 end
 '>
 					<pos x="3.25" y="0.75"/>
@@ -288,7 +291,7 @@ end
 				<object id="13" name="Sample every n-th tick:">
 					<pos x="3.25" y="2"/>
 					<min text="1" value="1"/>
-					<max text="60" value="60"/>
+					<max text="180" value="180"/>
 					<int text="1" value="1"/>
 					<v text="1" value="1"/>
 				</object>
@@ -305,307 +308,307 @@ end
 			</c>
 			<c type="58">
 				<object id="146" n="Num 1 Label:" v="Laser1">
-					<pos x="7.25" y="4.25"/>
+					<pos x="7.75" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="147" n="Num 2 Label:" v="Laser2">
-					<pos x="7.25" y="3.75"/>
+					<pos x="7.75" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="148" n="Num 3 Label:">
-					<pos x="7.25" y="3.25"/>
+					<pos x="7.75" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="149" n="Num 4 Label:">
-					<pos x="7.25" y="2.75"/>
+					<pos x="7.75" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="150" n="Num 5 Label:">
-					<pos x="7.25" y="2.25"/>
+					<pos x="7.75" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="151" n="Num 6 Label:">
-					<pos x="7.25" y="1.75"/>
+					<pos x="7.75" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="152" n="Num 7 Label:">
-					<pos x="7.25" y="1.25"/>
+					<pos x="7.75" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="153" n="Num 8 Label:">
-					<pos x="7.25" y="0.75"/>
+					<pos x="7.75" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="154" n="Num 9 Label:">
-					<pos x="8.25" y="4.25"/>
+					<pos x="8.75" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="155" n="Num 10 Label:">
-					<pos x="8.25" y="3.75"/>
+					<pos x="8.75" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="156" n="Num 11 Label:">
-					<pos x="8.25" y="3.25"/>
+					<pos x="8.75" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="157" n="Num 12 Label:">
-					<pos x="8.25" y="2.75"/>
+					<pos x="8.75" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="158" n="Num 13 Label:">
-					<pos x="8.25" y="2.25"/>
+					<pos x="8.75" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="159" n="Num 14 Label:">
-					<pos x="8.25" y="1.75"/>
+					<pos x="8.75" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="160" n="Num 15 Label:">
-					<pos x="8.25" y="1.25"/>
+					<pos x="8.75" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="161" n="Num 16 Label:">
-					<pos x="8.25" y="0.75"/>
+					<pos x="8.75" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="162" n="Num 17 Label:">
-					<pos x="9.25" y="4.25"/>
+					<pos x="9.75" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="163" n="Num 18 Label:">
-					<pos x="9.25" y="3.75"/>
+					<pos x="9.75" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="164" n="Num 19 Label:">
-					<pos x="9.25" y="3.25"/>
+					<pos x="9.75" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="165" n="Num 20 Label:">
-					<pos x="9.25" y="2.75"/>
+					<pos x="9.75" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="166" n="Num 21 Label:">
-					<pos x="9.25" y="2.25"/>
+					<pos x="9.75" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="167" n="Num 22 Label:">
-					<pos x="9.25" y="1.75"/>
+					<pos x="9.75" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="168" n="Num 23 Label:">
-					<pos x="9.25" y="1.25"/>
+					<pos x="9.75" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="169" n="Num 24 Label:">
-					<pos x="9.25" y="0.75"/>
+					<pos x="9.75" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="170" n="Num 25 Label:">
-					<pos x="10.25" y="4.25"/>
+					<pos x="10.75" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="171" n="Num 26 Label:">
-					<pos x="10.25" y="3.75"/>
+					<pos x="10.75" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="172" n="Num 27 Label:">
-					<pos x="10.25" y="3.25"/>
+					<pos x="10.75" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="173" n="Num 28 Label:">
-					<pos x="10.25" y="2.75"/>
+					<pos x="10.75" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="174" n="Num 29 Label:">
-					<pos x="10.25" y="2.25"/>
+					<pos x="10.75" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="175" n="Num 30 Label:">
-					<pos x="10.25" y="1.75"/>
+					<pos x="10.75" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="176" n="Num 31 Label:">
-					<pos x="10.25" y="1.25"/>
+					<pos x="10.75" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="177" n="Num 32 Label:">
-					<pos x="10.25" y="0.75"/>
+					<pos x="10.75" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="178" n="Bool 1 Label:" v="Bool1">
-					<pos x="11.5" y="4.25"/>
+					<pos x="12" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="179" n="Bool 2 Label:" v="Bool2">
-					<pos x="11.5" y="3.75"/>
+					<pos x="12" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="180" n="Bool 3 Label:">
-					<pos x="11.5" y="3.25"/>
+					<pos x="12" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="181" n="Bool 4 Label:">
-					<pos x="11.5" y="2.75"/>
+					<pos x="12" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="182" n="Bool 5 Label:">
-					<pos x="11.5" y="2.25"/>
+					<pos x="12" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="183" n="Bool 6 Label:">
-					<pos x="11.5" y="1.75"/>
+					<pos x="12" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="184" n="Bool 7 Label:">
-					<pos x="11.5" y="1.25"/>
+					<pos x="12" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="185" n="Bool 8 Label:">
-					<pos x="11.5" y="0.75"/>
+					<pos x="12" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="186" n="Bool 9 Label:">
-					<pos x="12.5" y="4.25"/>
+					<pos x="13" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="187" n="Bool 10 Label:">
-					<pos x="12.5" y="3.75"/>
+					<pos x="13" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="188" n="Bool 11 Label:">
-					<pos x="12.5" y="3.25"/>
+					<pos x="13" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="189" n="Bool 12 Label:">
-					<pos x="12.5" y="2.75"/>
+					<pos x="13" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="190" n="Bool 13 Label:">
-					<pos x="12.5" y="2.25"/>
+					<pos x="13" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="191" n="Bool 14 Label:">
-					<pos x="12.5" y="1.75"/>
+					<pos x="13" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="192" n="Bool 15 Label:">
-					<pos x="12.5" y="1.25"/>
+					<pos x="13" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="193" n="Bool 16 Label:">
-					<pos x="12.5" y="0.75"/>
+					<pos x="13" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="194" n="Bool 17 Label:">
-					<pos x="13.5" y="4.25"/>
+					<pos x="14" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="195" n="Bool 18 Label:">
-					<pos x="13.5" y="3.75"/>
+					<pos x="14" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="196" n="Bool 19 Label:">
-					<pos x="13.5" y="3.25"/>
+					<pos x="14" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="197" n="Bool 20 Label:">
-					<pos x="13.5" y="2.75"/>
+					<pos x="14" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="198" n="Bool 21 Label:">
-					<pos x="13.5" y="2.25"/>
+					<pos x="14" y="2.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="199" n="Bool 22 Label:">
-					<pos x="13.5" y="1.75"/>
+					<pos x="14" y="1.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="200" n="Bool 23 Label:">
-					<pos x="13.5" y="1.25"/>
+					<pos x="14" y="1.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="201" n="Bool 24 Label:">
-					<pos x="13.5" y="0.75"/>
+					<pos x="14" y="0.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="202" n="Bool 25 Label:">
-					<pos x="14.5" y="4.25"/>
+					<pos x="15" y="4.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="203" n="Bool 26 Label:">
-					<pos x="14.5" y="3.75"/>
+					<pos x="15" y="3.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="204" n="Bool 27 Label:">
-					<pos x="14.5" y="3.25"/>
+					<pos x="15" y="3.25"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="205" n="Bool 28 Label:">
-					<pos x="14.5" y="2.75"/>
+					<pos x="15" y="2.75"/>
 				</object>
 			</c>
 			<c type="58">
 				<object id="206" n="Bool 29 Label:">
-					<pos x="14.5" y="2.25"/>
+					<pos x="15" y="2.25"/>
 				</object>
 			</c>
 			<c type="33">
@@ -614,7 +617,7 @@ end
 				</object>
 			</c>
 			<c type="43">
-				<object id="212" l="Export Timer">
+				<object id="212" l="Export Timer (Sec)">
 					<pos x="6.25"/>
 					<in1 component_id="213"/>
 				</object>
@@ -623,6 +626,30 @@ end
 				<object id="213">
 					<pos x="4.75" y="0.25"/>
 					<in1 component_id="9"/>
+				</object>
+			</c>
+			<c type="43">
+				<object id="214" l="ETA (Sec)">
+					<pos x="6.25" y="-0.75"/>
+					<in1 component_id="215"/>
+				</object>
+			</c>
+			<c type="31">
+				<object id="215" i="1">
+					<pos x="4.75" y="-0.25"/>
+					<in1 component_id="9"/>
+				</object>
+			</c>
+			<c type="31">
+				<object id="216" i="2">
+					<pos x="4.75" y="-0.75"/>
+					<in1 component_id="9"/>
+				</object>
+			</c>
+			<c type="43">
+				<object id="217" l="Progress (%)">
+					<pos x="6.25" y="-1.5"/>
+					<in1 component_id="216"/>
 				</object>
 			</c>
 		</components>
@@ -653,6 +680,12 @@ end
 					<pos x="0.25" y="-0.25"/>
 				</object>
 			</c>
+			<c type="5">
+				<object id="221">
+					<pos x="6.25" y="0.75"/>
+					<in1 component_id="9"/>
+				</object>
+			</c>
 		</components_bridge>
 		<groups/>
 		<component_states>
@@ -672,107 +705,108 @@ end
 -- Developed &amp; Minimized using LifeBoatAPI - Stormworks Lua plugin for VSCode
 -- https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --      By Nameous Changey
--- Minimized Size: 3031 (3386 with comment) chars
-aB="&amp;values="
-aA="Num "
-az="Empty"
-ay="Exported!"
-ax="Exporting"
-aw=&apos;Empty&apos;
-av="bools"
-au="/packet?name="
-at=" Label:"
-as="nums"
-ar="Bool "
-aq="/ping"
-ap="/refresh"
-ao=&apos;&apos;
+-- Minimized Size: 3012 (3367 with comment) chars
+aB="/ping"
+aA="&amp;values="
+az="Num "
+ay=&apos;&apos;
+ax="/refresh"
+aw="Empty"
+av="Exported!"
+au="Exporting"
+at="bools"
+as="Bool "
+ar="/packet?name="
+aq=&apos;Empty&apos;
+ap="nums"
+ao=" Label:"
 
-o=1575
-P=output
-aa=true
-M=false
-J=property
-Q=input
-ab=math
-f=screen.drawText
-Z=ab.min
-K=table.insert
-y=string.format
-m=Q.getBool
-x=J.getText
-p=async.httpGet
-I=J.getBool
-L=J.getNumber
+p=1575
+Q=true
+D=false
+E=property
+T=input
+R=output
+W=math
+e=screen.drawText
+V=W.min
+N=table.insert
+F=R.setNumber
+A=string.format
+m=T.getBool
+C=E.getText
+r=async.httpGet
+M=E.getBool
+L=E.getNumber
 h=0
-q=0
+n=0
 v=0
-H=M
+O=D
 g="No connection"
 b=1
-d=1
-i=180
-D=as
+c=1
+j=360
+w=ap
 z=0
-N=3
-C=0
-t=0
-X=0
-V=M
-n=0
-_={e={},c={}}k={e={},c={}}T=L("Record Nums Up to Ch:")O=L("Record Bools Up to Ch:")ag=L("Sample every n-th tick:")af=I("Convert bools to 1-0:")aj=I("Debug screen:")ah=I("Clear CSV on spawn:")p(o,aq)for a=1,T do
-if x(aA..a..at)==ao then
-k.e[a]=aw
+H=3
+ac=0
+o=0
+J=0
+aa=D
+q=0
+a={f={},d={}}i={f={},d={}}Y=L("Record Nums Up to Ch:")ab=L("Record Bools Up to Ch:")af=L("Sample every n-th tick:")ae=M("Convert bools to 1-0:")ag=M("Debug screen:")ah=M("Clear CSV on spawn:")r(p,aB)for _=1,Y do
+if C(az.._..ao)==ay then
+i.f[_]=aq
 else
-k.e[a]=x(aA..a..at)end
+i.f[_]=C(az.._..ao)end
 end
-for a=1,O do
-if x(ar..a..at)==ao then
-k.c[a]=aw
+for _=1,ab do
+if C(as.._..ao)==ay then
+i.d[_]=aq
 else
-k.c[a]=x(ar..a..at)end
+i.d[_]=C(as.._..ao)end
 end
 if ah then
-p(o,ap)end
-function onTick()ai=m(30)A=m(31)ad=m(32)and not ak
-ak=m(32)if ai and not A then
+r(p,ax)end
+function onTick()al=m(30)y=m(31)ai=m(32)and not ad
+ad=m(32)if al and not y then
 h=h+1
-if h%ag==0 then
-_.e[#_.e+1]={}_.c[#_.c+1]={}for a=1,T do
-if k.e[a]~=az then
-_.e[#_.e][a]=y("%.4f",Q.getNumber(a))end
+if h%af==0 then
+a.f[#a.f+1]={}a.d[#a.d+1]={}for _=1,Y do
+if i.f[_]~=aw then
+a.f[#a.f][_]=A("%.4f",T.getNumber(_))end
 end
-for a=1,O do
-if k.c[a]~=az then
-if af then
-if m(a)then
-_.c[#_.c][a]=1
+for _=1,ab do
+if i.d[_]~=aw then
+if ae then
+if m(_)then
+a.d[#a.d][_]=1
 else
-_.c[#_.c][a]=0
+a.d[#a.d][_]=0
 end
 else
-_.c[#_.c][a]=tostring(m(a))end
+a.d[#a.d][_]=tostring(m(_))end
 end
 end
 h=0
-else
-_.e[#_.e+1]=_.e[#_.e]_.c[#_.c+1]=_.c[#_.c]end
 end
-if not A then
-n=0
+end
+if not y then
 q=0
+n=0
 end
-if A and g~=ay and V then
+if y and g~=av and aa then
+h=h+1
 z=z+1
-if n&lt;3 then
-if not H then
-g=ax
-G(D)H=aa
+if q&lt;3 then
+if not O then
+g=au
+G(w)O=Q
 else
 g="Waiting"
 h=h+1
-if h&gt;=N then
-H=M
+if h&gt;=H then
+O=D
 h=0
 end
 end
@@ -780,108 +814,105 @@ else
 g="Cancelled"
 end
 end
-if ad then
-p(o,aq)p(o,ap)end
-P.setNumber(1,z/60)P.setBool(1,g==ay)end
-function httpReply(an,E,F)if E:find(&apos;packet&apos;)then
-if F=="Values recorded" then
-g=ax
-q=q+1
-n=0
+if h%60==0 then
+o=S(a)X=#k(a.f,b)if y and n&gt;0 then
+ac=o/X/j*X*.84
+J=W.floor((n/ac)*100)end
+end
+if ai then
+r(p,aB)r(p,ax)end
+F(1,z/60)F(2,o/((180*(60/H))/1.4))F(3,J)R.setBool(1,g==av)end
+function httpReply(an,K,I)if K:find(&apos;packet&apos;)then
+if I=="Values recorded" then
+g=au
+n=n+1
+q=0
 else
 g="Failed"
-h=0
-n=n+1
+q=q+1
 end
-elseif E:find(&apos;refresh&apos;)then
-if F~="Refreshed" then
+elseif K:find(&apos;refresh&apos;)then
+if I~="Refreshed" then
 g="Refresh failed"
 end
-elseif E:find(&apos;ping&apos;)then
-if F=="pong" then
-V=aa
+elseif K:find(&apos;ping&apos;)then
+if I=="pong" then
+aa=Q
 g="Not exported"
 end
 end
 end
-function j(_,ae)local S={}for a,ac in ipairs(_)do
-K(S,ac[ae])end
-return S
+function k(a,ak)local U={}for _,aj in ipairs(a)do
+N(U,aj[ak])end
+return U
 end
-function G(type)if type==as then
-local u={}local l=j(_.e,b)for a=d,Z(#l,d+i-1)do
-K(u,l[a])end
-d=d+i
-local r=Y(u)if r==ao then
-if#j(_.e,b+1)&gt;0 then
+function G(type)if type==ap then
+local s={}local l=k(a.f,b)for _=c,V(#l,c+j-1)do
+N(s,l[_])end
+c=c+j
+local t=P(s)if t==ay then
+if#k(a.f,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-D=av
-d=1
+w=at
+c=1
 b=1
-G(av)end
+G(at)end
 else
-p(o,au..k.e[b]..aB..r)v=v+1
+r(p,ar..i.f[b]..aA..t)v=v+1
 end
-if d&gt;#l+i then
-if#j(_.e,b+1)&gt;0 then
+if c&gt;#l+j then
+if#k(a.f,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-D=av
-d=1
+w=at
+c=1
 b=1
-G(av)end
+G(at)end
 end
 else
-local u={}local l=j(_.c,b)for a=d,Z(#l,d+i-1)do
-K(u,l[a])end
-d=d+i
-local r=Y(u)if r==ao then
-if#j(_.c,b+1)&gt;0 then
+local s={}local l=k(a.d,b)for _=c,V(#l,c+j-1)do
+N(s,l[_])end
+c=c+j
+local t=P(s)if t==ay then
+if#k(a.d,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-g=ay
+g=av
 end
 else
-p(o,au..k.c[b]..aB..r)v=v+1
+r(p,ar..i.d[b]..aA..t)v=v+1
 end
-if d&gt;#l+i then
-if#j(_.c,b+1)&gt;0 then
+if c&gt;#l+j then
+if#k(a.d,b+1)&gt;0 then
 b=b+1
-d=1
+c=1
 else
-g=ay
+g=av
 end
 end
 end
 end
-function Y(w)local B=""
-for a=1,#w do
-B=B..w[a]..&apos;,&apos;
+function P(x)local B=""
+for _=1,#x do
+B=B..x[_]..&apos;,&apos;
 end
 return B:sub(1,#B-1)end
-function U(w)local s=0
-for am,W in pairs(w)do
-if type(W)=="table" then
-s=s+U(W)else
-s=s+1
+function S(x)local u=0
+for am,Z in pairs(x)do
+if type(Z)=="table" then
+u=u+S(Z)else
+u=u+1
 end
 end
-return s
+return u
 end
-function onDraw()C=C+1
-if C%60==0 then
-C=0
-t=U(_)R=#j(_.e,b)if A and q&gt;0 then
-al=t/R/i*R*.84
-X=ab.floor((q/al)*100)end
-end
-if aj then
-f(1,1,g)f(1,7,"#tbl:"..t)f(1,13,"receipts:"..q)f(1,19,"sends:"..v)f(1,25,"ticks:"..h)f(1,31,"pair:"..b)f(1,37,"bch:"..d.."-"..d+i)f(1,43,"#par:"..#j(_.e,b))f(1,49,"type:"..D)f(1,55,"Attempts:"..n)else
-f(1,1,g)f(1,7,"Pts:"..t)f(1,14,y("ETA:%.1fs",t/((180*(60/N))/1.4)))f(1,21,y("Timer:%.1fs",z/60))f(1,27,y("%%Done:%.1f%%",X))end
+function onDraw()if ag then
+e(1,1,g)e(1,7,"#tbl:"..o)e(1,13,"receipts:"..n)e(1,19,"sends:"..v)e(1,25,"ticks:"..h)e(1,31,"pair:"..b)e(1,37,"bch:"..c.."-"..c+j)e(1,43,"#par:"..#k(a.f,b))e(1,49,"type:"..w)e(1,55,"Attempts:"..q)else
+e(1,1,g)e(1,7,"Pts:"..o)e(1,14,A("ETA:%.1fs",o/((180*(60/H))/1.4)))e(1,21,A("Timer:%.1fs",z/60))e(1,27,A("%%Done:%.1f%%",J))end
 end
 '>
 				<pos x="3.25" y="0.75"/>
@@ -904,7 +935,7 @@ end
 			<c4 id="13" name="Sample every n-th tick:">
 				<pos x="3.25" y="2"/>
 				<min text="1" value="1"/>
-				<max text="60" value="60"/>
+				<max text="180" value="180"/>
 				<int text="1" value="1"/>
 				<v text="1" value="1"/>
 			</c4>
@@ -915,192 +946,192 @@ end
 				<pos x="3.25" y="3.5"/>
 			</c6>
 			<c7 id="146" n="Num 1 Label:" v="Laser1">
-				<pos x="7.25" y="4.25"/>
+				<pos x="7.75" y="4.25"/>
 			</c7>
 			<c8 id="147" n="Num 2 Label:" v="Laser2">
-				<pos x="7.25" y="3.75"/>
+				<pos x="7.75" y="3.75"/>
 			</c8>
 			<c9 id="148" n="Num 3 Label:">
-				<pos x="7.25" y="3.25"/>
+				<pos x="7.75" y="3.25"/>
 			</c9>
 			<c10 id="149" n="Num 4 Label:">
-				<pos x="7.25" y="2.75"/>
+				<pos x="7.75" y="2.75"/>
 			</c10>
 			<c11 id="150" n="Num 5 Label:">
-				<pos x="7.25" y="2.25"/>
+				<pos x="7.75" y="2.25"/>
 			</c11>
 			<c12 id="151" n="Num 6 Label:">
-				<pos x="7.25" y="1.75"/>
+				<pos x="7.75" y="1.75"/>
 			</c12>
 			<c13 id="152" n="Num 7 Label:">
-				<pos x="7.25" y="1.25"/>
+				<pos x="7.75" y="1.25"/>
 			</c13>
 			<c14 id="153" n="Num 8 Label:">
-				<pos x="7.25" y="0.75"/>
+				<pos x="7.75" y="0.75"/>
 			</c14>
 			<c15 id="154" n="Num 9 Label:">
-				<pos x="8.25" y="4.25"/>
+				<pos x="8.75" y="4.25"/>
 			</c15>
 			<c16 id="155" n="Num 10 Label:">
-				<pos x="8.25" y="3.75"/>
+				<pos x="8.75" y="3.75"/>
 			</c16>
 			<c17 id="156" n="Num 11 Label:">
-				<pos x="8.25" y="3.25"/>
+				<pos x="8.75" y="3.25"/>
 			</c17>
 			<c18 id="157" n="Num 12 Label:">
-				<pos x="8.25" y="2.75"/>
+				<pos x="8.75" y="2.75"/>
 			</c18>
 			<c19 id="158" n="Num 13 Label:">
-				<pos x="8.25" y="2.25"/>
+				<pos x="8.75" y="2.25"/>
 			</c19>
 			<c20 id="159" n="Num 14 Label:">
-				<pos x="8.25" y="1.75"/>
+				<pos x="8.75" y="1.75"/>
 			</c20>
 			<c21 id="160" n="Num 15 Label:">
-				<pos x="8.25" y="1.25"/>
+				<pos x="8.75" y="1.25"/>
 			</c21>
 			<c22 id="161" n="Num 16 Label:">
-				<pos x="8.25" y="0.75"/>
+				<pos x="8.75" y="0.75"/>
 			</c22>
 			<c23 id="162" n="Num 17 Label:">
-				<pos x="9.25" y="4.25"/>
+				<pos x="9.75" y="4.25"/>
 			</c23>
 			<c24 id="163" n="Num 18 Label:">
-				<pos x="9.25" y="3.75"/>
+				<pos x="9.75" y="3.75"/>
 			</c24>
 			<c25 id="164" n="Num 19 Label:">
-				<pos x="9.25" y="3.25"/>
+				<pos x="9.75" y="3.25"/>
 			</c25>
 			<c26 id="165" n="Num 20 Label:">
-				<pos x="9.25" y="2.75"/>
+				<pos x="9.75" y="2.75"/>
 			</c26>
 			<c27 id="166" n="Num 21 Label:">
-				<pos x="9.25" y="2.25"/>
+				<pos x="9.75" y="2.25"/>
 			</c27>
 			<c28 id="167" n="Num 22 Label:">
-				<pos x="9.25" y="1.75"/>
+				<pos x="9.75" y="1.75"/>
 			</c28>
 			<c29 id="168" n="Num 23 Label:">
-				<pos x="9.25" y="1.25"/>
+				<pos x="9.75" y="1.25"/>
 			</c29>
 			<c30 id="169" n="Num 24 Label:">
-				<pos x="9.25" y="0.75"/>
+				<pos x="9.75" y="0.75"/>
 			</c30>
 			<c31 id="170" n="Num 25 Label:">
-				<pos x="10.25" y="4.25"/>
+				<pos x="10.75" y="4.25"/>
 			</c31>
 			<c32 id="171" n="Num 26 Label:">
-				<pos x="10.25" y="3.75"/>
+				<pos x="10.75" y="3.75"/>
 			</c32>
 			<c33 id="172" n="Num 27 Label:">
-				<pos x="10.25" y="3.25"/>
+				<pos x="10.75" y="3.25"/>
 			</c33>
 			<c34 id="173" n="Num 28 Label:">
-				<pos x="10.25" y="2.75"/>
+				<pos x="10.75" y="2.75"/>
 			</c34>
 			<c35 id="174" n="Num 29 Label:">
-				<pos x="10.25" y="2.25"/>
+				<pos x="10.75" y="2.25"/>
 			</c35>
 			<c36 id="175" n="Num 30 Label:">
-				<pos x="10.25" y="1.75"/>
+				<pos x="10.75" y="1.75"/>
 			</c36>
 			<c37 id="176" n="Num 31 Label:">
-				<pos x="10.25" y="1.25"/>
+				<pos x="10.75" y="1.25"/>
 			</c37>
 			<c38 id="177" n="Num 32 Label:">
-				<pos x="10.25" y="0.75"/>
+				<pos x="10.75" y="0.75"/>
 			</c38>
 			<c39 id="178" n="Bool 1 Label:" v="Bool1">
-				<pos x="11.5" y="4.25"/>
+				<pos x="12" y="4.25"/>
 			</c39>
 			<c40 id="179" n="Bool 2 Label:" v="Bool2">
-				<pos x="11.5" y="3.75"/>
+				<pos x="12" y="3.75"/>
 			</c40>
 			<c41 id="180" n="Bool 3 Label:">
-				<pos x="11.5" y="3.25"/>
+				<pos x="12" y="3.25"/>
 			</c41>
 			<c42 id="181" n="Bool 4 Label:">
-				<pos x="11.5" y="2.75"/>
+				<pos x="12" y="2.75"/>
 			</c42>
 			<c43 id="182" n="Bool 5 Label:">
-				<pos x="11.5" y="2.25"/>
+				<pos x="12" y="2.25"/>
 			</c43>
 			<c44 id="183" n="Bool 6 Label:">
-				<pos x="11.5" y="1.75"/>
+				<pos x="12" y="1.75"/>
 			</c44>
 			<c45 id="184" n="Bool 7 Label:">
-				<pos x="11.5" y="1.25"/>
+				<pos x="12" y="1.25"/>
 			</c45>
 			<c46 id="185" n="Bool 8 Label:">
-				<pos x="11.5" y="0.75"/>
+				<pos x="12" y="0.75"/>
 			</c46>
 			<c47 id="186" n="Bool 9 Label:">
-				<pos x="12.5" y="4.25"/>
+				<pos x="13" y="4.25"/>
 			</c47>
 			<c48 id="187" n="Bool 10 Label:">
-				<pos x="12.5" y="3.75"/>
+				<pos x="13" y="3.75"/>
 			</c48>
 			<c49 id="188" n="Bool 11 Label:">
-				<pos x="12.5" y="3.25"/>
+				<pos x="13" y="3.25"/>
 			</c49>
 			<c50 id="189" n="Bool 12 Label:">
-				<pos x="12.5" y="2.75"/>
+				<pos x="13" y="2.75"/>
 			</c50>
 			<c51 id="190" n="Bool 13 Label:">
-				<pos x="12.5" y="2.25"/>
+				<pos x="13" y="2.25"/>
 			</c51>
 			<c52 id="191" n="Bool 14 Label:">
-				<pos x="12.5" y="1.75"/>
+				<pos x="13" y="1.75"/>
 			</c52>
 			<c53 id="192" n="Bool 15 Label:">
-				<pos x="12.5" y="1.25"/>
+				<pos x="13" y="1.25"/>
 			</c53>
 			<c54 id="193" n="Bool 16 Label:">
-				<pos x="12.5" y="0.75"/>
+				<pos x="13" y="0.75"/>
 			</c54>
 			<c55 id="194" n="Bool 17 Label:">
-				<pos x="13.5" y="4.25"/>
+				<pos x="14" y="4.25"/>
 			</c55>
 			<c56 id="195" n="Bool 18 Label:">
-				<pos x="13.5" y="3.75"/>
+				<pos x="14" y="3.75"/>
 			</c56>
 			<c57 id="196" n="Bool 19 Label:">
-				<pos x="13.5" y="3.25"/>
+				<pos x="14" y="3.25"/>
 			</c57>
 			<c58 id="197" n="Bool 20 Label:">
-				<pos x="13.5" y="2.75"/>
+				<pos x="14" y="2.75"/>
 			</c58>
 			<c59 id="198" n="Bool 21 Label:">
-				<pos x="13.5" y="2.25"/>
+				<pos x="14" y="2.25"/>
 			</c59>
 			<c60 id="199" n="Bool 22 Label:">
-				<pos x="13.5" y="1.75"/>
+				<pos x="14" y="1.75"/>
 			</c60>
 			<c61 id="200" n="Bool 23 Label:">
-				<pos x="13.5" y="1.25"/>
+				<pos x="14" y="1.25"/>
 			</c61>
 			<c62 id="201" n="Bool 24 Label:">
-				<pos x="13.5" y="0.75"/>
+				<pos x="14" y="0.75"/>
 			</c62>
 			<c63 id="202" n="Bool 25 Label:">
-				<pos x="14.5" y="4.25"/>
+				<pos x="15" y="4.25"/>
 			</c63>
 			<c64 id="203" n="Bool 26 Label:">
-				<pos x="14.5" y="3.75"/>
+				<pos x="15" y="3.75"/>
 			</c64>
 			<c65 id="204" n="Bool 27 Label:">
-				<pos x="14.5" y="3.25"/>
+				<pos x="15" y="3.25"/>
 			</c65>
 			<c66 id="205" n="Bool 28 Label:">
-				<pos x="14.5" y="2.75"/>
+				<pos x="15" y="2.75"/>
 			</c66>
 			<c67 id="206" n="Bool 29 Label:">
-				<pos x="14.5" y="2.25"/>
+				<pos x="15" y="2.25"/>
 			</c67>
 			<c68 id="210" n="Debug screen:" v="true">
 				<pos x="4.75" y="1.25"/>
 			</c68>
-			<c69 id="212" l="Export Timer">
+			<c69 id="212" l="Export Timer (Sec)">
 				<pos x="6.25"/>
 				<in1 component_id="213"/>
 			</c69>
@@ -1108,6 +1139,22 @@ end
 				<pos x="4.75" y="0.25"/>
 				<in1 component_id="9"/>
 			</c70>
+			<c71 id="214" l="ETA (Sec)">
+				<pos x="6.25" y="-0.75"/>
+				<in1 component_id="215"/>
+			</c71>
+			<c72 id="215" i="1">
+				<pos x="4.75" y="-0.25"/>
+				<in1 component_id="9"/>
+			</c72>
+			<c73 id="216" i="2">
+				<pos x="4.75" y="-0.75"/>
+				<in1 component_id="9"/>
+			</c73>
+			<c74 id="217" l="Progress (%)">
+				<pos x="6.25" y="-1.5"/>
+				<in1 component_id="216"/>
+			</c74>
 		</component_states>
 		<component_bridge_states>
 			<c0 id="3">
@@ -1126,6 +1173,10 @@ end
 			<c4 id="211">
 				<pos x="0.25" y="-0.25"/>
 			</c4>
+			<c5 id="221">
+				<pos x="6.25" y="0.75"/>
+				<in1 component_id="9"/>
+			</c5>
 		</component_bridge_states>
 		<group_states/>
 	</group>
