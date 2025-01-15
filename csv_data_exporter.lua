@@ -117,7 +117,7 @@ waiting = false
 exportStatus = "No connection"
 currentPairIndex = 1
 currentBatchStartIndex = 1
-batchSize = 180
+batchSize = 360
 currentDataType = "nums"
 exportTimer = 0
 exportRate = 3
@@ -166,18 +166,19 @@ function onTick()
     refresh = input.getBool(32) and not down
     down = input.getBool(32)
 
-    ticks = ticks + 1
+    
     if start and not export then --we are RECORDING data!
+        ticks = ticks + 1
         if ticks % sampleRate == 0 then -- time to record data
             data.nums[#data.nums+1] = {}
             data.bools[#data.bools+1] = {}
-
+            
             for i = 1, numNums do --record nums that arent empty
                 if channelNames.nums[i] ~= "Empty" then
                     data.nums[#data.nums][i] = string.format("%.4f", input.getNumber(i))
                 end
             end
-
+            
             for i = 1, numBools do --record bools
                 if channelNames.bools[i] ~= "Empty" then
                     if convertBools then
@@ -191,18 +192,19 @@ function onTick()
                     end
                 end
             end
-
+            
             ticks = 0
         end
     end
-
+    
     if not export then
         attempts = 0
         receipts = 0
     end
-
+    
     -- Check for export and start exporting data
     if export and exportStatus ~= "Exported!" and connection then
+        ticks = ticks + 1
         exportTimer = exportTimer + 1
         if attempts < 3 then --only try exporting if we haven't failed 3 times
             if not waiting then
@@ -250,7 +252,6 @@ function httpReply(port, request_body, response_body)
             attempts = 0
         else
             exportStatus = "Failed"
-            ticks = 0
             attempts = attempts + 1
         end
     elseif request_body:find('refresh') then

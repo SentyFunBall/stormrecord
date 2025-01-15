@@ -31,6 +31,8 @@ def packet():
     length = end - start
 
     print("Request took",length*1000,"ms")
+    if (length*1000) > 16: #surpassed tick rate of SW
+        print("WARNING!! Request took too long!")
     
     return "Values recorded"
 
